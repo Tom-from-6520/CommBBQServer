@@ -1,12 +1,10 @@
-drop table if exists patrons cascade;
-drop table if exists organizers cascade;
-drop table if exists events cascade;
-drop table if exists attend cascade;
-drop table if exists favorite_org cascade;
-drop table if exists favorite_event cascade;
-drop table if exists addresses cascade;
-drop table if exists foods cascade;
-drop table if exists have_food;
+do $$ 
+declare r record;
+begin
+    for r in (select tablename from pg_tables where schemaname='public') loop 
+        execute 'drop table if exists ' ||quote_ident(r.tablename)|| ' cascade';
+    end loop;
+end $$;
 
 -- table for organizers
 create table organizers (
@@ -35,11 +33,12 @@ create table events (
     org_id bigint not null references organizers(id) on delete cascade,
     address_id bigint references addresses(id) on delete set null,
     name varchar(64) not null,
-    event_time varchar(32) not null,
+    event_time timestamp not null,
     price varchar(32)
 );
 
 -- table for types of foods
+--     cardinality M:N 
 create table foods (
     id serial primary key,
     name varchar(32) not null
@@ -48,9 +47,9 @@ create table foods (
 -- table for the occurence of food in an event
 --     cardinality M:N 
 create table have_food (
-    food_id bigint references foods(id) on delete cascade,
     event_id bigint references events(id) on delete cascade,
-    primary key(food_id, event_id)
+    food_id bigint references foods(id) on delete cascade,
+    primary key(event_id, food_id)
 );
 
 -- table for patrons
