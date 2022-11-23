@@ -2,6 +2,7 @@ package com.example.cbbq;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.Scanner;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 public class CBBQApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CBBQApplication.class, args);
+		SpringApplication app = new SpringApplication(CBBQApplication.class);
+        app.setDefaultProperties(Collections.singletonMap("server.port", "80"));
+        app.run(args);
 	}
 
 	@GetMapping("/")
