@@ -31,9 +31,9 @@ $ psql --host=<DB instance endpoint> --port=<port> --username=<master username> 
 ```
 where `<DB instance endpoint>`, `<port>`, `<master username>`, and `<database name>` is specified for one's own PostgreSQL servers.
 
-2. Run the `db_creation.sql` file to create the tables for the database. Note: this will drop all previous tables.
+2. Run the `db_creation.sql` file in the `[root]/cbbq/src/main/resources/db_files` to create the tables for the database. Note: this will drop all previous tables.
 
-3. (Optional) Run the `db_add_test_data.sql` file to populate the tables with test data. 
+3. (Optional) Run the `db_add_test_data.sql` file in the same folder as above to populate the tables with test data. 
 
 ### Install all dependencies and run the server
 
@@ -47,6 +47,10 @@ The server will start at port 80.
 ### Note for AWS instances
 
 Remember to set up the security group to open for HTTP and/or HTTPS at port 80 as well as a port for SSH connection to the developers' machine(s). 
+
+### Test file
+
+The project also contain a Postman set of test cases in the `[root]/cbbq/src/test/java/com/example/cbbq/postman_tests`.
 
 ## Future work
 There are some important TODOs to this project:
