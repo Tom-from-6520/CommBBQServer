@@ -53,16 +53,16 @@ public class OrgController {
 	@GetMapping("/{id}/addresses")
 	public @ResponseBody Iterable<Address> getOrgAddressList(@PathVariable(name = "id") String id) {
 		Organizer org = organizerRepository.findById(Long.valueOf(id)).orElse(null);
-        List<Address> addressList = new ArrayList<>();
+        List<Address> addressList = addressRepository.findAll();
+		List<Address> orgAddresses = new ArrayList<>();
         if (org != null) {
-            for (Address a : org.getAddresses()) {
-                Address address = addressRepository.findById(a.getId()).orElse(null);
-                if (address != null) {
-                    addressList.add(address);
+            for (Address address : addressList) {
+                if (address.getOrg().getId() == org.getId()) {
+                    orgAddresses.add(address);
                 }
             }
         }
-		return addressList;
+		return orgAddresses;
 	}
 
 	@PostMapping("/{id}/addresses")
@@ -86,29 +86,28 @@ public class OrgController {
 	public @ResponseBody Address getOrgAddress(@PathVariable(name = "id") String id, @PathVariable(name = "address_id") String addr_id) {
 		Organizer org = organizerRepository.findById(Long.valueOf(id)).orElse(null);
         Address address = addressRepository.findById(Long.valueOf(addr_id)).orElse(null);
-        if(org != null && address != null && org.getAddresses().contains(address)) {
+        if(org != null && address != null && address.getOrg().getId() == org.getId()) {
             return address;
         }
 		return null;
 	}
 
 	@DeleteMapping("/{id}/addresses/{address_id}")
-	public @ResponseBody Organizer deleteOrgAddress(@PathVariable(name = "id") String id, @PathVariable(name = "address_id") String addr_id) {
+	public @ResponseBody int deleteOrgAddress(@PathVariable(name = "id") String id, @PathVariable(name = "address_id") String addr_id) {
 		Organizer org = organizerRepository.findById(Long.valueOf(id)).orElse(null);
         Address address = addressRepository.findById(Long.valueOf(addr_id)).orElse(null);
-        if(org != null && address != null && org.getAddresses().contains(address)) {
-			addressRepository.delete(address);
-			org.getAddresses().remove(address);
-			organizerRepository.save(org);
+        if(org != null && address != null && address.getOrg().getId() == org.getId()) {
+			addressRepository.deleteById(address.getId());;
+			return 1;
         }
-		return org;
+		return 0;
 	}
 
 	@PutMapping("/{id}/addresses/{address_id}/info")
 	public @ResponseBody Address updateOrgAddressInfo(@PathVariable(name = "id") String id, @PathVariable(name = "address_id") String addr_id, @RequestBody Address newAddress) {
 		Organizer org = organizerRepository.findById(Long.valueOf(id)).orElse(null);
-		Address oldAddress = addressRepository.findById(newAddress.getId()).orElse(null);
-        if (org != null && oldAddress != null && org.getAddresses().contains(oldAddress)) {
+		Address oldAddress = addressRepository.findById(Long.valueOf(addr_id)).orElse(null);
+        if (org != null && oldAddress != null && oldAddress.getOrg().getId() == org.getId()) {
 			oldAddress.setStreet_address(newAddress.getStreet_address());
 			oldAddress.setCity(newAddress.getCity());
 			oldAddress.setUs_state(newAddress.getUs_state());
@@ -120,15 +119,20 @@ public class OrgController {
 		return null;
 	}
 
+	@GetMapping("/events")
+	public @ResponseBody Iterable<Event> getAllEvents() {
+		return eventRepository.findAll();
+	}
+
 	@GetMapping("/{id}/events")
 	public @ResponseBody Iterable<Event> getOrgEventsList(@PathVariable(name = "id") String id) {
 		// return the list of events the organizer hosts
         Organizer org = organizerRepository.findById(Long.valueOf(id)).orElse(null);
+		List<Event> eventList = eventRepository.findAll();
         List<Event> hostingList = new ArrayList<>();
         if (org != null) {
-            for (Event e : org.getHostingEvents()) {
-                Event event = eventRepository.findById(e.getId()).orElse(null);
-                if (event != null) {
+            for (Event event : eventList) {
+                if (event.getOrg().getId() == org.getId()) {
                     hostingList.add(event);
                 }
             }
@@ -144,7 +148,7 @@ public class OrgController {
             Event newEvent = new Event();
             newEvent.setOrg(org);
 			Address addr = addressRepository.findById(event.getAddress().getId()).orElse(null);
-            if (addr != null)
+            if (addr != null && addr.getOrg().getId() == org.getId())
 				newEvent.setAddress(addr);
 			newEvent.setName(event.getName());
 			newEvent.setEventTime(event.getEventTime());
@@ -160,23 +164,22 @@ public class OrgController {
 		// return the detail of an event hosted by the organizer
 		Organizer org = organizerRepository.findById(Long.valueOf(id)).orElse(null);
         Event event = eventRepository.findById(Long.valueOf(event_id)).orElse(null);
-        if(org != null && event != null && org.getHostingEvents().contains(event)) {
+        if(org != null && event != null && event.getOrg().getId() == org.getId()) {
             return event;
         }
 		return null;
 	}
 
 	@DeleteMapping("/{id}/events/{event_id}")
-	public @ResponseBody Organizer deleteOrgEvent(@PathVariable(name = "id") String id, @PathVariable(name = "event_id") String event_id) {
+	public @ResponseBody int deleteOrgEvent(@PathVariable(name = "id") String id, @PathVariable(name = "event_id") String event_id) {
 		// delete the event hosted by the organizer
 		Organizer org = organizerRepository.findById(Long.valueOf(id)).orElse(null);
         Event event = eventRepository.findById(Long.valueOf(event_id)).orElse(null);
-        if(org != null && event != null && org.getHostingEvents().contains(event)) {
+        if(org != null && event != null && event.getOrg().getId() == org.getId()) {
 			eventRepository.delete(event);
-			org.getHostingEvents().remove(event);
-			organizerRepository.save(org);
+			return 1;
         }
-		return org;
+		return 0;
 	}
 	
 	// @GetMapping("/{id}/events/{event_id}/info")
@@ -190,9 +193,9 @@ public class OrgController {
 		// update the info of the event hosted by the organizer
 		Organizer org = organizerRepository.findById(Long.valueOf(id)).orElse(null);
         Event oldEvent = eventRepository.findById(Long.valueOf(event_id)).orElse(null);
-        if(org != null && oldEvent != null && org.getHostingEvents().contains(oldEvent)) {
+        if(org != null && oldEvent != null && oldEvent.getOrg().getId() == org.getId()) {
 			Address addr = addressRepository.findById(event.getAddress().getId()).orElse(null);
-            if (addr != null)
+            if (addr != null && addr.getOrg().getId() == org.getId())
 				oldEvent.setAddress(addr);
 			oldEvent.setName(event.getName());
 			oldEvent.setEventTime(event.getEventTime());

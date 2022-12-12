@@ -78,7 +78,7 @@ public class PatronController {
 	public @ResponseBody Event getAttendingEvent(@PathVariable(name = "id") String id, @PathVariable(name = "event_id") String event_id) {
 		Patron patron = patronRepository.findById(Long.valueOf(id)).orElse(null);
         Event event = eventRepository.findById(Long.valueOf(event_id)).orElse(null);
-        if(patron != null && event != null && patron.getAttendingEvents().contains(event)) {
+        if(patron != null && event != null) {
             return event;
         }
 		return null;
@@ -121,17 +121,17 @@ public class PatronController {
 		return patron;
 	}
 
-	@GetMapping("/{id}/fav/{org_id}")
+	@GetMapping("/{id}/fav/org/{org_id}")
 	public @ResponseBody Organizer getFavOrg(@PathVariable(name = "id") String id, @PathVariable(name = "org_id") String org_id) {
 		Patron patron = patronRepository.findById(Long.valueOf(id)).orElse(null);
         Organizer org = organizerRepository.findById(Long.valueOf(org_id)).orElse(null);
-        if(patron != null && patron.getFavoriteOrgs().contains(org)) {
+        if(patron != null && org != null) {
             return org;
         }
 		return null;
 	}
 
-	@DeleteMapping("/{id}/fav/{org_id}")
+	@DeleteMapping("/{id}/fav/org/{org_id}")
 	public @ResponseBody Patron deleteFavoriteOrg(@PathVariable(name = "id") String id, @PathVariable(name = "org_id") String org_id) {
 		Patron patron = patronRepository.findById(Long.valueOf(id)).orElse(null);
         Organizer org = organizerRepository.findById(Long.valueOf(org_id)).orElse(null);
@@ -170,7 +170,7 @@ public class PatronController {
 		return patron;
 	}
 
-	@GetMapping("/{id}/fav/{event_id}")
+	@GetMapping("/{id}/fav/events/{event_id}")
 	public @ResponseBody Event getFavEvent(@PathVariable(name = "id") String id, @PathVariable(name = "event_id") String event_id) {
 		// get the details on a patron's favorite event
         Patron patron = patronRepository.findById(Long.valueOf(id)).orElse(null);
@@ -181,7 +181,7 @@ public class PatronController {
 		return null;
 	}
 
-	@DeleteMapping("/{id}/fav/{event_id}")
+	@DeleteMapping("/{id}/fav/events/{event_id}")
 	public @ResponseBody Patron deleteFavoriteEvent(@PathVariable(name = "id") String id, @PathVariable(name = "event_id") String event_id) {
 		Patron patron = patronRepository.findById(Long.valueOf(id)).orElse(null);
         Event event = eventRepository.findById(Long.valueOf(event_id)).orElse(null);
