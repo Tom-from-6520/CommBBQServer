@@ -26,6 +26,9 @@ public class Organizer {
     @OneToMany
     private Set<Event> hostingEvents;
 
+    @ManyToMany(mappedBy = "favoriteOrgs")
+    private Set<Patron> favPatrons;
+
     public Long getId() {
         return id;
     }

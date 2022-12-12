@@ -25,8 +25,19 @@ public class Event {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventTime;
     private String price;
+    
     @ManyToMany
+    @JoinTable(
+        name = "event_serve_food",
+        joinColumns = @JoinColumn(name = "event_id"),
+        inverseJoinColumns = @JoinColumn(name = "food_id"))
     private Set<Food> servingFoods;
+
+    @ManyToMany(mappedBy = "attendingEvents")
+    private Set<Patron> guests;
+
+    @ManyToMany(mappedBy = "favoriteEvents")
+    private Set<Patron> favPatrons;
     
     public Long getId() {
         return id;

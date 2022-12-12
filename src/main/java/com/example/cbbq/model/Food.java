@@ -1,5 +1,7 @@
 package com.example.cbbq.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 import org.springframework.lang.NonNull;
@@ -12,6 +14,9 @@ public class Food {
     private Long id;
     @NonNull
     private String name;
+
+    @ManyToMany(mappedBy = "servingFoods")
+    private Set<Event> featuredEvents;
     
     public Long getId() {
         return id;

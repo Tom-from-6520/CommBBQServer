@@ -21,11 +21,26 @@ public class Patron {
     private String password;
     @Transient
     private String passwordConfirm;
+    
     @ManyToMany
+    @JoinTable(
+        name = "patron_fav_org",
+        joinColumns = @JoinColumn(name = "patron_id"),
+        inverseJoinColumns = @JoinColumn(name = "org_id"))
     private Set<Organizer> favoriteOrgs;
+
     @ManyToMany
+    @JoinTable(
+        name = "patron_fav_event",
+        joinColumns = @JoinColumn(name = "patron_id"),
+        inverseJoinColumns = @JoinColumn(name = "event_id"))
     private Set<Event> favoriteEvents;
+    
     @ManyToMany
+    @JoinTable(
+        name = "patron_attend_event",
+        joinColumns = @JoinColumn(name = "patron_id"),
+        inverseJoinColumns = @JoinColumn(name = "event_id"))
     private Set<Event> attendingEvents;
 
     public Long getId() {
