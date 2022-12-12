@@ -34,3 +34,7 @@ build/
 
 ### Unnecessary files ###
 *.log
+
+### Signature files
+*.pem
+*.ppk
