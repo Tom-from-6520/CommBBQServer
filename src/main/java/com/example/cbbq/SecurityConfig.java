@@ -39,6 +39,7 @@ public class SecurityConfig {
         //         .and()
         //     .logout()
         //         .permitAll();
+        http.cors().and().csrf().disable();
         return http.build();
     }
 
