@@ -1,3 +1,4 @@
+-- drop all table in the cbbq database
 do $$ 
 declare r record;
 begin
@@ -44,14 +45,6 @@ create table foods (
     name varchar(32) not null
 );
 
--- table for the occurence of food in an event
---     cardinality M:N 
-create table have_food (
-    event_id bigint references events(id) on delete cascade,
-    food_id bigint references foods(id) on delete cascade,
-    primary key(event_id, food_id)
-);
-
 -- table for patrons
 create table patrons (
     id serial primary key,
@@ -59,28 +52,4 @@ create table patrons (
     name varchar(64) not null,
     phone varchar(10),
     password varchar(64) not null
-);
-
--- table for patrons' attendance to events
---     cardinality M:N 
-create table attend (
-    patron_id bigint references patrons(id) on delete cascade,
-    event_id bigint references events(id) on delete cascade,
-    primary key(patron_id, event_id)
-);
-
--- table for patrons' favorite events
---     cardinality M:N 
-create table favorite_event (
-    patron_id bigint references patrons(id) on delete cascade,
-    event_id bigint references events(id) on delete cascade,
-    primary key(patron_id, event_id)
-);
-
--- table for patrons' favorite organizers
---     cardinality M:N 
-create table favorite_org (
-    patron_id bigint references patrons(id) on delete cascade,
-    org_id bigint references organizers(id) on delete cascade,
-    primary key(patron_id, org_id)
 );

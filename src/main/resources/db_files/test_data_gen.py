@@ -20,7 +20,7 @@ file = open("C:/Users/Tom/codespace/vscode_test/cbbq/cbbq/src/main/resources/db_
 org_query = "insert into organizers (username, name, phone, password) values \n"
 for i in range(num_org):
     email = str(chr(97+i)) + "@test.edu"
-    name = "test_org_" + str(i)
+    name = "test_org_" + str(i+1)
     phone = str(zip_code[i%len(zip_code)]) + str(zip_code[(i+1)%len(zip_code)])
     password = name + name
     org_query += "('{}', '{}', '{}', '{}'), \n".format(email, name, phone, password)
@@ -42,7 +42,7 @@ event_query = "insert into events (org_id, address_id, name, event_time, price) 
 for i in range(num_addr):
     org_id = i // num_addr_per_org + 1
     addr_id = i+1
-    name = "test_event_" + str(i)
+    name = "test_event_" + str(i+1)
     event_time = "2022-12-" + str(rand.randint(1, 14)) + " " + str(rand.randint(12, 19)) + ":" + str(rand.randint(10, 59)) + ":00"
     price = "$" + str(i+10) + " each adult."
     event_query += "({}, {}, '{}', '{}', '{}'), \n".format(org_id, addr_id, name, event_time, price)
@@ -55,50 +55,50 @@ for f in food:
 file.write(food_query[:-2] + ";\n\n")
 
 # add have_food relationship
-have_foor_query = "insert into have_food (event_id, food_id) values "
-for i in range(num_addr):
-    food_idx = rand.sample(list(range(1, len(food)+1, 1)), 3)
-    for j in range(3):
-        have_foor_query += "({}, {}), ".format(i+1, food_idx[j])
-file.write(have_foor_query[:-2] + ";\n\n")
+# have_foor_query = "insert into have_food (event_id, food_id) values "
+# for i in range(num_addr):
+#     food_idx = rand.sample(list(range(1, len(food)+1, 1)), 3)
+#     for j in range(3):
+#         have_foor_query += "({}, {}), ".format(i+1, food_idx[j])
+# file.write(have_foor_query[:-2] + ";\n\n")
 
 # add the patrons
 patron_query = "insert into patrons (username, name, phone, password) values \n"
 for i in range(num_patron):
     email = str(chr(97+i)) + "@test.edu"
-    name = "test_patron_" + str(i)
+    name = "test_patron_" + str(i+1)
     phone = str(zip_code[i%len(zip_code)]) + str(zip_code[(i+1)%len(zip_code)])
     password = name + name
     patron_query += "('{}', '{}', '{}', '{}'), \n".format(email, name, phone, password)
 file.write(patron_query[:-3] + ";\n\n")
 
 # add attend relationship
-attend_query = "insert into attend (patron_id, event_id) values "
-for i in range(num_patron):
-    num_attended = rand.randint(1, num_addr-1)
-    events_attended = rand.sample(list(range(1, num_addr+1, 1)), num_attended)
-    for j in range(num_attended):
-        attend_query += "({}, {}), ".format(i+1, events_attended[j])
-file.write(attend_query[:-2] + ";\n\n")
+# attend_query = "insert into attend (patron_id, event_id) values "
+# for i in range(num_patron):
+#     num_attended = rand.randint(1, num_addr-1)
+#     events_attended = rand.sample(list(range(1, num_addr+1, 1)), num_attended)
+#     for j in range(num_attended):
+#         attend_query += "({}, {}), ".format(i+1, events_attended[j])
+# file.write(attend_query[:-2] + ";\n\n")
 
 # add favorite_event relationship
-fav_event_query = "insert into favorite_event (patron_id, event_id) values "
-for i in range(num_patron):
-    num_fav = rand.randint(1, num_addr//2)
-    fav_events = rand.sample(list(range(1, num_addr+1, 1)), num_fav)
-    for j in range(num_fav):
-        fav_event_query += "({}, {}), ".format(i+1, fav_events[j])
-file.write(fav_event_query[:-2] + ";\n\n")
+# fav_event_query = "insert into favorite_event (patron_id, event_id) values "
+# for i in range(num_patron):
+#     num_fav = rand.randint(1, num_addr//2)
+#     fav_events = rand.sample(list(range(1, num_addr+1, 1)), num_fav)
+#     for j in range(num_fav):
+#         fav_event_query += "({}, {}), ".format(i+1, fav_events[j])
+# file.write(fav_event_query[:-2] + ";\n\n")
 
 
 # add favorite_org relationship
-fav_org_query = "insert into favorite_org (patron_id, org_id) values "
-for i in range(num_patron):
-    num_fav = rand.randint(1, num_org//2)
-    fav_org = rand.sample(list(range(1, num_org+1, 1)), num_fav)
-    for j in range(num_fav):
-        fav_org_query += "({}, {}), ".format(i+1, fav_org[j])
-file.write(fav_org_query[:-2] + ";\n\n")
+# fav_org_query = "insert into favorite_org (patron_id, org_id) values "
+# for i in range(num_patron):
+#     num_fav = rand.randint(1, num_org//2)
+#     fav_org = rand.sample(list(range(1, num_org+1, 1)), num_fav)
+#     for j in range(num_fav):
+#         fav_org_query += "({}, {}), ".format(i+1, fav_org[j])
+# file.write(fav_org_query[:-2] + ";\n\n")
 
 
 # close the test data sql file
