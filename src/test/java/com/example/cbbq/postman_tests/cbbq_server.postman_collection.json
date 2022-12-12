@@ -1,0 +1,545 @@
+{
+	"info": {
+		"_postman_id": "152d4995-2711-43c0-8c4a-dd105db47b20",
+		"name": "cbbq_server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16389834"
+	},
+	"item": [
+		{
+			"name": "patron tests",
+			"item": [
+				{
+					"name": "GET patron info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rootURL}}/patron/1",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET patron info Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"a@test.edu\",\r\n    \"name\": \"test_patron_1_modified\",\r\n    \"phone\": \"3620785705\",\r\n    \"password\": \"test_patron_1test_patron_1\",\r\n    \"passwordConfirm\": null,\r\n    \"favoriteOrgs\": [],\r\n    \"favoriteEvents\": [],\r\n    \"attendingEvents\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rootURL}}/patron/1/info",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET patron attend list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rootURL}}/patron/1/attend",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1",
+								"attend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST event to patron attend list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rootURL}}/patron/1/attend?event_id=1",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1",
+								"attend"
+							],
+							"query": [
+								{
+									"key": "event_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE event from patron attend list",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rootURL}}/patron/1/attend/1",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1",
+								"attend",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET patron favorite org list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rootURL}}/patron/1/fav/org",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1",
+								"fav",
+								"org"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST org to patron fav list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rootURL}}/patron/1/fav/org?org_id=1",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1",
+								"fav",
+								"org"
+							],
+							"query": [
+								{
+									"key": "org_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE org from patron fav list",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rootURL}}/patron/1/fav/org/1",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1",
+								"fav",
+								"org",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET patron favorite event list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rootURL}}/patron/1/fav/events",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1",
+								"fav",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST event to patron fav list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rootURL}}/patron/1/fav/events?event_id=1",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1",
+								"fav",
+								"events"
+							],
+							"query": [
+								{
+									"key": "event_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE event from patron fav list",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rootURL}}/patron/1/fav/events/1",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"patron",
+								"1",
+								"fav",
+								"events",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "org tests",
+			"item": [
+				{
+					"name": "info tests",
+					"item": [
+						{
+							"name": "GET org info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rootURL}}/org/1/",
+									"host": [
+										"{{rootURL}}"
+									],
+									"path": [
+										"org",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT org info",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 2,\r\n    \"username\": \"a@test.edu\",\r\n    \"name\": \"test_org_1\",\r\n    \"phone\": \"8570522427\",\r\n    \"password\": \"test_org_1test_org_1\",\r\n    \"passwordConfirm\": null,\r\n    \"addresses\": [],\r\n    \"hostingEvents\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rootURL}}/org/1/info",
+									"host": [
+										"{{rootURL}}"
+									],
+									"path": [
+										"org",
+										"1",
+										"info"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "address tests",
+					"item": [
+						{
+							"name": "GET org address list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rootURL}}/org/1/addresses",
+									"host": [
+										"{{rootURL}}"
+									],
+									"path": [
+										"org",
+										"1",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST new address to org",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"The response is a json object\", function() {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The response has all properties\", function() {\r",
+											"    const response = pm.response.json();\r",
+											"    pm.expect(response.street_address).to.eql(\"Fire Bender St\");\r",
+											"    pm.expect(response.city).to.eql(\"Bowling Green\");\r",
+											"    pm.expect(response.us_state).to.eql(\"NJ\");\r",
+											"    pm.expect(response.zip_code).to.eql(\"22427\");\r",
+											"    pm.expect(response.country).to.eql(\"US\");\r",
+											"    \r",
+											"    pm.collectionVariables.set(\"addr_id\", response.id);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"street_address\" : \"Fire Bender St\",\r\n    \"city\": \"Bowling Green\",\r\n    \"us_state\": \"NJ\",\r\n    \"zip_code\": \"22427\",\r\n    \"country\": \"US\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rootURL}}/org/1/addresses",
+									"host": [
+										"{{rootURL}}"
+									],
+									"path": [
+										"org",
+										"1",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET org new address list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rootURL}}/org/1/addresses",
+									"host": [
+										"{{rootURL}}"
+									],
+									"path": [
+										"org",
+										"1",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET address details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rootURL}}/org/1/addresses/{{addr_id}}",
+									"host": [
+										"{{rootURL}}"
+									],
+									"path": [
+										"org",
+										"1",
+										"addresses",
+										"{{addr_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT to new address",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"street_address\": \"Fire Bender Ave\",\r\n    \"city\": \"Bowling Green\",\r\n    \"us_state\": \"NJ\",\r\n    \"zip_code\": \"22427\",\r\n    \"country\": \"US\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rootURL}}/org/1/addresses/{{addr_id}}/info",
+									"host": [
+										"{{rootURL}}"
+									],
+									"path": [
+										"org",
+										"1",
+										"addresses",
+										"{{addr_id}}",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE new address",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{rootURL}}/org/1/addresses/{{addr_id}}",
+									"host": [
+										"{{rootURL}}"
+									],
+									"path": [
+										"org",
+										"1",
+										"addresses",
+										"{{addr_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "event tests",
+					"item": [
+						{
+							"name": "GET all events",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "GET event of org",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rootURL}}/org/1/events",
+									"host": [
+										"{{rootURL}}"
+									],
+									"path": [
+										"org",
+										"1",
+										"events"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "rootURL",
+			"value": "http://localhost:80",
+			"type": "string"
+		},
+		{
+			"key": "addr_id",
+			"value": "11",
+			"type": "string"
+		}
+	]
+}
